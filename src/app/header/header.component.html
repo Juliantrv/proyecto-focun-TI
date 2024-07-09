@@ -1,0 +1,41 @@
+<nav class="relative bg-white shadow dark:bg-gray-800">
+    <div class="px-6 py-4 mx-auto">
+        <div class="flex items-center justify-between">
+
+            <a class="mx-3 ">
+                <img class="w-auto h-6 sm:h-7" src="https://focunti.com/wp-content/uploads/2022/10/focun-logo.svg"
+                    alt="">
+            </a>
+
+            <button type="button" class="flex items-center focus:outline-none group">
+                <div class="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
+                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+                        class="object-cover w-full h-full" alt="avatar">
+                </div>
+
+                <h3 class="mx-2 text-gray-700 dark:text-gray-200">Khatab wedaa</h3>
+
+                <!-- Dropdown menu -->
+                <div
+                    class="absolute hidden group-focus:block z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 right-5 top-14">
+                    <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+                        <div class="font-medium ">Pro User</div>
+                        <div class="truncate">name&#64;flowbite.com</div>
+                    </div>
+                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton">
+                        <li>
+                            <a href="#"
+                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                        </li>
+                    </ul>
+                    <div class="py-2">
+                        <a (click)="singOut()"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                            Sign out</a>
+                    </div>
+                </div>
+            </button>
+        </div>
+    </div>
+</nav>

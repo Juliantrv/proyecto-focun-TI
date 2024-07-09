@@ -1,0 +1,107 @@
+<div class="max-w-2xl mx-auto mt-4">
+    <form [formGroup]="newProduct" (ngSubmit)="send()">
+
+        <div class="relative z-0 mb-6 w-full group">
+            <input type="text" name="floating_email"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
+                placeholder=" " formControlName="sku" />
+            <label for="floating_sku"
+                class="absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Sku</label>
+        </div>
+        <div class="relative z-0 mb-6 w-full group">
+            <input type="text" name="floating_name"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
+                placeholder=" " formControlName="name" />
+            <label for="floating_name"
+                class="absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Name</label>
+        </div>
+        <div class="relative z-0 mb-6 w-full group">
+            <input type="text" name="floating_Price"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
+                placeholder=" " formControlName="price" />
+            <label for="floating_Price"
+                class="absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Price</label>
+        </div>
+
+        <div class="relative z-0 mb-6 w-full group">
+            <!-- Select Element -->
+            <select aria-label="Options" formControlName="selectedIdMaker"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer">
+                <option *ngFor="let maker of manufacturers" [value]="maker.id" class="bg-white dark:bg-gray-700">
+                    {{maker.option}}
+                </option>
+            </select>
+            <label for="floating_Maker"
+                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                Select manufacturer
+            </label>
+            <!-- SVG Icon -->
+            <svg class="w-2.5 h-2.5 ms-3 absolute right-2 top-3 pointer-events-none" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+            </svg>
+        </div>
+
+        <div class="relative z-0 mb-6 w-full group">
+            <!-- Select Element -->
+            <select aria-label="Options" formControlName="selectedIdCategory"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer">
+                <option *ngFor="let category of categories" [value]="category.id" class="bg-white dark:bg-gray-700">
+                    {{category.option}}
+                </option>
+            </select>
+            <label for="floating_Maker"
+                class="absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                Select category
+            </label>
+            <!-- SVG Icon -->
+            <svg class="w-2.5 h-2.5 ms-3 absolute right-2 top-3 pointer-events-none" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+            </svg>
+        </div>
+
+        <div class="relative z-0 mb-6 w-full group">
+            <input type="text" name="floating_Description"
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
+                placeholder=" " formControlName="description" />
+            <label for="floating_Description"
+                class="absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Description</label>
+        </div>
+        <div class="max-w-sm mx-auto">
+            <div class="border-2 border-dashed border-blue-300 p-6 text-center cursor-pointer hover:border-blue-500"
+                (drop)="onFileDropped($event)" (dragover)="$event.preventDefault()"
+                (dragenter)="$event.preventDefault()" (click)="fileInput.click()">
+                <input type="file" class="hidden" accept="image/*" (change)="fileBrowseHandler($event)"
+                    #fileInput>
+                <label for="fileInput" class="cursor-pointer">
+                    <svg class="h-10 w-10 text-gray-600 mx-auto mb-4" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                    </svg>
+                    <p>Drag image here or</p>
+                    <p class="text-blue-600">Browse images</p>
+                    <p class="text-gray-500 mt-4">You can add one image, not exceeding 5 MB.</p>
+                </label>
+                <p class="text-red-600 mt-2" *ngIf="errorMessage">{{ errorMessage }}</p>
+            </div>
+
+            <div class="mt-4" *ngIf="image">
+                <div class="relative">
+                    <img [src]="imageUrl" alt="Preview" class="h-20 w-20 object-cover inline-block mr-2">
+                    <button (click)="removeImage()"
+                        class="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full">
+                        &times;
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Submit</button>
+    </form>
+</div>

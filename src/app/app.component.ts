@@ -1,3 +1,4 @@
+import { UsersService } from './services/users.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'proyecto-focun';
+
+  constructor(
+    private usersService: UsersService
+  ){ }
+  
+  auth(){
+    return this.usersService.isAuth()
+  }
+
 }
