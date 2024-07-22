@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsersService } from '../services/users.service';
-import { LoginRequest } from '../services/loginRequest';
+import { LoginRequest } from '../interfaces/loginRequest.interface';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +28,6 @@ export class LoginComponent {
       this.usersService.login(this.loginForm.value as LoginRequest).subscribe({
         next: (response)=> {
           sessionStorage.setItem("token", response.access)
-          // localStorage.setItem('token', response.access)
           this.router.navigate([''])
         },
         error: (error)=> {

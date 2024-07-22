@@ -4,31 +4,48 @@
         <div class="relative z-0 mb-6 w-full group">
             <input type="text" name="floating_email"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
+                [ngClass]="{'border-red-500': newProduct.get('sku')?.touched && newProduct.get('sku')?.invalid}"
                 placeholder=" " formControlName="sku" />
             <label for="floating_sku"
-                class="absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Sku</label>
+                class="absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                Sku
+            </label>
+            <p class="text-red-500" *ngIf="newProduct.get('sku')?.touched && newProduct.get('sku')?.invalid">*Obligatory
+                field</p>
         </div>
         <div class="relative z-0 mb-6 w-full group">
             <input type="text" name="floating_name"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
+                [ngClass]="{'border-red-500': newProduct.get('name')?.touched && newProduct.get('name')?.invalid}"
                 placeholder=" " formControlName="name" />
             <label for="floating_name"
-                class="absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Name</label>
+                class="absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                Name
+            </label>
+            <p class="text-red-500" *ngIf="newProduct.get('name')?.touched && newProduct.get('name')?.invalid">
+                *Obligatory field</p>
         </div>
         <div class="relative z-0 mb-6 w-full group">
             <input type="text" name="floating_Price"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
+                [ngClass]="{'border-red-500': newProduct.get('price')?.touched && newProduct.get('price')?.invalid}"
+                (keypress)="validateNumberInput($event)"
                 placeholder=" " formControlName="price" />
             <label for="floating_Price"
-                class="absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Price</label>
+                class="absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                Price
+            </label>
+            <p class="text-red-500" *ngIf="newProduct.get('price')?.touched && newProduct.get('price')?.invalid">
+                *Obligatory field</p>
         </div>
 
         <div class="relative z-0 mb-6 w-full group">
             <!-- Select Element -->
             <select aria-label="Options" formControlName="selectedIdMaker"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer">
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
+                [ngClass]="{'border-red-500': newProduct.get('selectedIdMaker')?.touched && newProduct.get('selectedIdMaker')?.invalid}">
                 <option *ngFor="let maker of manufacturers" [value]="maker.id" class="bg-white dark:bg-gray-700">
-                    {{maker.option}}
+                    {{maker.razon_social}}
                 </option>
             </select>
             <label for="floating_Maker"
@@ -41,13 +58,17 @@
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="m1 1 4 4 4-4" />
             </svg>
+            <p class="text-red-500"
+                *ngIf="newProduct.get('selectedIdMaker')?.touched && newProduct.get('selectedIdMaker')?.invalid">
+                *Obligatory field</p>
         </div>
 
         <div class="relative z-0 mb-6 w-full group">
             <!-- Select Element -->
             <select aria-label="Options" formControlName="selectedIdCategory"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer">
-                <option *ngFor="let category of categories" [value]="category.id" class="bg-white dark:bg-gray-700">
+                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
+                [ngClass]="{'border-red-500': newProduct.get('selectedIdCategory')?.touched && newProduct.get('selectedIdCategory')?.invalid}">
+                <option *ngFor="let category of categories" [value]="category.option" class="bg-white dark:bg-gray-700">
                     {{category.option}}
                 </option>
             </select>
@@ -61,21 +82,29 @@
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="m1 1 4 4 4-4" />
             </svg>
+            <p class="text-red-500"
+                *ngIf="newProduct.get('selectedIdCategory')?.touched && newProduct.get('selectedIdCategory')?.invalid">
+                *Obligatory field</p>
         </div>
 
         <div class="relative z-0 mb-6 w-full group">
             <input type="text" name="floating_Description"
                 class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
+                [ngClass]="{'border-red-500': newProduct.get('description')?.touched && newProduct.get('description')?.invalid}"
                 placeholder=" " formControlName="description" />
             <label for="floating_Description"
-                class="absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Description</label>
+                class="absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-black peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
+                Description
+            </label>
+            <p class="text-red-500"
+                *ngIf="newProduct.get('description')?.touched && newProduct.get('description')?.invalid">*Obligatory
+                field</p>
         </div>
         <div class="max-w-sm mx-auto">
             <div class="border-2 border-dashed border-blue-300 p-6 text-center cursor-pointer hover:border-blue-500"
                 (drop)="onFileDropped($event)" (dragover)="$event.preventDefault()"
                 (dragenter)="$event.preventDefault()" (click)="fileInput.click()">
-                <input type="file" class="hidden" accept="image/*" (change)="fileBrowseHandler($event)"
-                    #fileInput>
+                <input type="file" class="hidden" accept="image/*" (change)="fileBrowseHandler($event)" #fileInput>
                 <label for="fileInput" class="cursor-pointer">
                     <svg class="h-10 w-10 text-gray-600 mx-auto mb-4" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -101,7 +130,12 @@
             </div>
         </div>
 
-        <button type="submit"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Submit</button>
+        <button 
+            type="submit" 
+            [disabled]="newProduct.invalid"
+            class="text-white bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center "
+            [ngClass]="{'hover:bg-blue-800':newProduct.valid}">
+            Submit
+        </button>
     </form>
 </div>

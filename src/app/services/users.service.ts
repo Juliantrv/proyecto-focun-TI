@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable} from "@angular/core";
-import { LoginRequest } from "./loginRequest";
+import { LoginRequest } from "../interfaces/loginRequest.interface";
 import { Observable } from "rxjs";
+import { Api } from "../model/api.model.local"
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,7 @@ export class UsersService{
     ){}
 
     login(credenciales: LoginRequest):Observable<any>{
-        return this.httpClient.post('https://12gzzj80-8010.use2.devtunnels.ms/principal/api/token/',credenciales)
+        return this.httpClient.post(Api.token,credenciales)
     }
 
     signOut(){

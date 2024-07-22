@@ -1,8 +1,0 @@
-<div class="grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 justify-items-center m-4">
-    <div *ngFor="let product of products" class="h-80 w-80 flex flex-col justify-center items-center p-5  bg-white rounded-lg shadow-md">
-        <img class="w-32 h-40 relative overflow-hidden bottom-6" alt="Producto" [src]="product.src">
-        <h3>{{product.name}}</h3>
-        <p>SKU: {{product.sku}}</p>
-        <p class="relative">Selling Price: {{product.price}}</p>
-    </div>
-</div>

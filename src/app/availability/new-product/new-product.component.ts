@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NewProductService } from '../../services/new-product.service';
-NewProductService
-
+import { ProductService } from '../../services/product.service';
+import { Manufacturer } from '../../interfaces/manufacturers.interface'
+import { onlyNumbers } from '../../validators/onlyNumber';
 @Component({
   selector: 'app-new-product',
   templateUrl: './new-product.component.html',
@@ -14,38 +14,49 @@ export class NewProductComponent implements OnInit {
   errorMessage: string[] = [];
   image: File | null | string | ArrayBuffer = null;
   imageUrl: string | ArrayBuffer | null = '';
-  manufacturers = [{ id: 0, option: '...' }]
-  categories = [{ id: 0, option: '...' }]
+  manufacturers:Manufacturer[] = []
+  categories = [{ id: 0, option: 'ACC' }]
 
   constructor(
     private fb: FormBuilder,
-    private newProductService : NewProductService
-  ) { }
+    private productService : ProductService
+  ) { 
+    this.productService.getManufacturers().subscribe({
+      next: (resp)=> resp.forEach((manufacturer: any) => this.manufacturers.push({id :manufacturer.id, razon_social: manufacturer.razon_social})),
+      error: (error)=> console.error(error)
+    })
+  }
 
   ngOnInit() {
     this.newProduct = this.fb.group({
       sku: ['', Validators.required],
       name: ['', Validators.required],
       image: ['', Validators.required],
-      selectedIdCategory: ['0', Validators.required],
-      selectedIdMaker: ['0', Validators.required],
+      selectedIdCategory: ['', Validators.required],
+      selectedIdMaker: ['', Validators.required],
       description: ['', Validators.required],
-      price: ['', Validators.required]
+      price: ['', [Validators.required, onlyNumbers()]]
     })
 
-    this.newProductService.getManufacturers().subscribe({
-      next:(response)=> this.manufacturers.push(response),
-      error:(error)=> console.error(error)
-    })
   }
 
   send(): void {
     if (this.newProduct.valid) {
-      let {selectedIdCategory, selectedIdMaker} = this.newProduct.value
-      if(selectedIdCategory != 0 && selectedIdMaker != 0){
-        
+      const body = {
+        sku: this.newProduct.get('sku')?.value,
+        nombre: this.newProduct.get('name')?.value,
+        imagen: this.newProduct.get('image')?.value,
+        descripcion: this.newProduct.get('description')?.value,
+        precio: this.newProduct.get('price')?.value,
+        fabricante: this.newProduct.get('selectedIdMaker')?.value,
+        categoria: this.newProduct.get('selectedIdCategory')?.value
       }
-      alert(`Please choose a provider and/or a category`);
+
+      this.productService.createProduct([body]).subscribe({
+        next: (resp)=> alert('Product created correctly'),
+        error: (error)=> alert('Product could not be created')
+      })
+
     } else {
       this.checkInvalidParam()
       let errorMessageList = this.errorMessage.join("\n- ");
@@ -57,7 +68,6 @@ export class NewProductComponent implements OnInit {
   checkInvalidParam() {
     Object.keys(this.newProduct.controls).forEach(key => {
       const control = this.newProduct.get(key);
-      console.log(key)
       if (control && control.invalid) {
         this.errorMessage.push(`The parameter ' ${key} ' is not valid.`);
       }
@@ -79,7 +89,7 @@ export class NewProductComponent implements OnInit {
     if (file && file.type.startsWith('image/')) {
       if (file.size <= 5242880) { // 5 MB in bytes
         try {
-          const base64 = await this.newProductService.convertToBase64(file);
+          const base64 = await this.productService.convertToBase64(file);
           this.image = base64;
           this.newProduct.patchValue({ image: base64 });
           this.previewImage(file);
@@ -113,6 +123,13 @@ export class NewProductComponent implements OnInit {
 
   removeImage() {
     this.clearImage();
+  }
+
+  validateNumberInput(event: KeyboardEvent) {
+    const inputChar = event.key;
+    if (!/^\d$/.test(inputChar)) {
+      event.preventDefault();
+    }
   }
 
 }

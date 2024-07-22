@@ -1,2 +1,8 @@
-<app-nav></app-nav>
-<router-outlet/>
+<app-nav 
+    (viewEmitter)="changeView($event)"
+    (searchEmiter)="changeSearchEmiter($event)"
+    (productStatusEmiter)="productStatusChange($event)"
+></app-nav>
+
+<app-product [search]="componentSearch" [products]="products" [componentView]="componentView" [productStatus]="productStatus"></app-product>
+<app-new-product *ngIf="componentView == 'newProduct'"></app-new-product>
